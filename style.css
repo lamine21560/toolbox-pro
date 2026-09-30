@@ -22,3 +22,21 @@ label{display:block;font-weight:600;font-size:.9rem}
 .calc{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.calc button{background:var(--bg);color:var(--tx);border:1px solid var(--bd);padding:14px}
 .sw{display:flex;gap:8px;flex-wrap:wrap}.sw div{flex:1;min-width:80px;height:90px;border-radius:12px;display:flex;align-items:end;justify-content:center;color:#fff;font:600 .8rem monospace;cursor:pointer;padding:6px;text-shadow:0 0 4px #000}
 footer{text-align:center;color:var(--mu);font-size:.9rem;padding:20px 16px 40px}footer a{margin:0 8px;display:inline-block}
+.ot-logo {
+    width: 90px;
+    height: 90px;
+    background: #121212;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #333333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    letter-spacing: 2px;
+    margin: 20px auto;
+}
+
