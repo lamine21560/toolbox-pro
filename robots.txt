@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://VOTRE-NOM.github.io/toolbox-pro/sitemap.xml
