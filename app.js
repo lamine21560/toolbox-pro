@@ -4,12 +4,7 @@ const $=(s,r=document)=>r.querySelector(s),pick=a=>a[Math.floor(Math.random()*a.
 const slug=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const rnd=n=>Math.floor(Math.random()*n);
-const AD = n => n === 'haut' 
-    ? '<script>atOptions = { "key" : "812205587c049f865be1c4d32eb0eaa1", "format" : "iframe", "height" : 250, "width" : 300, "params" : {} };</script><script src="https://assistedtogether.com/812205587c049f865be1c4d32eb0eaa1/invoke.js"></script>' 
-    : (n === 'bas' 
-        ? '<script async="async" data-cfasync="false" src="https://assistedtogether.com/40d1564334cefe483c1c3fce7214034c/invoke.js"></script><div id="container-40d1564334cefe483c1c3fce7214034c"></div>'
-        : `<div class="ad" data-slot="${n}">Espace publicitaire (${n})</div>`);
-const T=[
+const AD=n=>`<div class="ad" data-slot="${n}"></div>`
 {id:'bio-instagram',n:'Générateur de bio Instagram',c:'social',i:'📸',d:'Des bios Instagram originales en un clic.',g:'Une bonne bio tient en 150 caractères : qui vous êtes, ce que vous offrez, un appel à l’action. Ajoutez 1 à 3 emojis maximum.',
  f:[['nom','Nom ou pseudo','text','Léa'],['job','Activité','text','photographe'],['ton','Ton','select','fun',['fun','pro','inspirant']]],
  run:v=>({fun:[`${v.job} 100% passionné(e) ✨ | ${v.nom} 😎`,`${v.nom} • ${v.job} 🚀 Ici pour le fun 🎉`,`Mi-${v.job}, mi-rêveur(se) 🌈 | ${v.nom}`],pro:[`${v.nom} | ${v.job} 📍 Contact en DM 📩`,`${v.job} professionnel(le) • Projets & collaborations 💼`,`${v.nom} — ${v.job}. Qualité, passion, résultats ✅`],inspirant:[`${v.nom} ✨ ${v.job} | Crois en tes rêves 🌟`,`Créer chaque jour, inspirer toujours 🌱 ${v.job}`,`${v.job} et fier(e) de l’être 💫 | ${v.nom}`]})[v.ton]},
