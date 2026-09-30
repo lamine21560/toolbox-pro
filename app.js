@@ -1,4 +1,4 @@
-const SITE = { name: 'OmniTools', email: 'contact@exemple.com' };
+const SITE = { name: 'OmniTools', email: 'laminengom236@gmail.com' };
 const CATS={social:'📱 Réseaux sociaux',texte:'✍️ Texte',secu:'🔐 Sécurité',calcul:'🧮 Calcul',design:'🎨 Design',fun:'🎲 Divers'};
 const $=(s,r=document)=>r.querySelector(s),pick=a=>a[Math.floor(Math.random()*a.length)],sh=a=>[...a].sort(()=>Math.random()-.5);
 const slug=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
