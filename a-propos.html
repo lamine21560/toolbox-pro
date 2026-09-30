@@ -1,1 +1,22 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>À propos – ToolBox Pro</title><meta name="description" content="Découvrez ToolBox Pro, des outils gratuits en ligne."><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>"><link rel="stylesheet" href="css/style.css"><script src="js/app.js" defer></script></head><body data-p="page"><main class="wrap" id="app"><h1>ℹ️ À propos</h1><p>ToolBox Pro propose des outils en ligne gratuits, rapides et sans inscription : réseaux sociaux, texte, sécurité, calcul et design.</p><p>Tous les calculs sont effectués dans votre navigateur : vos données ne sont pas envoyées à nos serveurs. Le site est financé par la publicité.</p></main></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>À propos – ToolBox Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <script>
+        // Charge le header et le footer automatiques du site
+        document.addEventListener('DOMContentLoaded', () => {
+            const dk = localStorage.th ? localStorage.th == 'd' : matchMedia('(prefers-color-scheme:dark)').matches;
+            document.documentElement.dataset.theme = dk ? 'dark' : 'light';
+            document.body.insertAdjacentHTML('afterbegin', `<header><div class="wrap"><a class="logo" href="index.html">🛠️ ToolBox Pro</a><nav><a href="index.html">Accueil</a><a href="index.html#outils">Outils</a><a href="guides.html">Guides</a><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a></nav></div></header>`);
+            document.body.insertAdjacentHTML('beforeend', `<footer><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions</a><p>© ${new Date().getFullYear()} ToolBox Pro</p></footer>`);
+            document.body.insertAdjacentHTML('beforeend', `<main class="wrap"><h1>À propos de ToolBox Pro</h1><p>ToolBox Pro est une collection de 16 outils gratuits, rapides et pensés pour être utilisés directement sur mobile sans inscription.</p></main>`);
+        });
+    </script>
+</body>
+</html>
