@@ -1,5 +1,5 @@
 const SITE = { name: 'OmniTools', email: 'laminengom236@gmail.com' };
-const CATS = { social: '📱 Réseaux sociaux', texte: '✍️️ Texte', secu: '🔐 Sécurité', calcul: '🧮 Calcul', design: '🎨 Design', fun: '🎲 Divers' };
+const CATS = { social: '📱 Réseaux sociaux', texte: '✍️ Texte', secu: '🔐 Sécurité', calcul: '🧮 Calcul', design: '🎨 Design', fun: '🎲 Divers' };
 
 const $ = (s, r = document) => r.querySelector(s);
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -8,12 +8,10 @@ const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase
 const esc = s => String(s).replace(/[&<">]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const rnd = n => Math.floor(Math.random() * n);
 
-// Injection de publicité sans bloquer le rendu du JS
-const AD = n => `<div class="ad" data-slot="${n}">
-  <iframe srcdoc="<script>atOptions={'key':'812205587c049f865be1c4d32eb0eaa1','format':'iframe','height':250,'width':300,'params':{}};</script><script src='https://assistedtogether.com/812205587c049f865be1c4d32eb0eaa1/invoke.js'></script>" style="width:300px;height:250px;border:none;overflow:hidden;margin:auto;display:block;"></iframe>
-</div>`;
+// Pas de pub dans les blocs pour éviter les interférences
+const AD = () => '';
 
-const LOGO_SVG = `<svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+const LOGO_SVG = `<svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px;display:inline-block;vertical-align:middle;">
   <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="12"/>
   <circle cx="50" cy="50" r="12" fill="currentColor"/>
   <circle cx="22" cy="22" r="4" fill="currentColor"/>
@@ -98,8 +96,8 @@ function lay() {
   const dk = localStorage.th ? localStorage.th == 'd' : matchMedia('(prefers-color-scheme:dark)').matches;
   document.documentElement.dataset.theme = dk ? 'dark' : 'light';
 
-  document.body.insertAdjacentHTML('afterbegin', `<header><div class="wrap"><a class="logo" href="index.html">${LOGO_SVG} <span>${SITE.name}</span></a><nav><a href="index.html">Accueil</a><a href="index.html#outils">Outils</a><a href="guides.html">Guides</a><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a></nav><button id="th" aria-label="Mode sombre">${dk ? '🌙' : '☀️️'}</button></div></header>`);
-  document.body.insertAdjacentHTML('beforeend', `<footer>${AD('bas')}<a href="a-propos.html">À propos</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions</a><p>© ${new Date().getFullYear()} ${SITE.name}</p></footer>`);
+  document.body.insertAdjacentHTML('afterbegin', `<header><div class="wrap"><a class="logo" href="index.html">${LOGO_SVG} <span>${SITE.name}</span></a><nav><a href="index.html">Accueil</a><a href="index.html#outils">Outils</a><a href="guides.html">Guides</a><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a></nav><button id="th" aria-label="Mode sombre">${dk ? '🌙' : '☀️'}</button></div></header>`);
+  document.body.insertAdjacentHTML('beforeend', `<footer><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions</a><p>© ${new Date().getFullYear()} ${SITE.name}</p></footer>`);
 
   $('#th').onclick = () => {
     const isDark = document.documentElement.dataset.theme !== 'dark';
@@ -136,8 +134,6 @@ function home(a) {
         <button id="clear-q" style="display:none; position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:inherit; font-size:16px; cursor:pointer; opacity:0.6;">✕</button>
       </div>
     </section>
-    
-    ${AD('haut')}
 
     <div id="fav-sec" style="display:none; margin-bottom: 20px;">
       <h3 style="font-size:15px; opacity:0.8; margin-bottom:10px;">⭐ Vos outils favoris</h3>
@@ -213,7 +209,7 @@ function tool(a) {
   document.title = t.n + ' – gratuit | ' + SITE.name;
   document.querySelector('meta[name=description]').content = t.d + ' Outil gratuit en ligne.';
 
-  a.innerHTML = `<h1>${t.i} ${t.n}</h1><p>${t.d}</p>${AD('haut')}<div class="box" id="tb"></div>${AD('milieu')}<p><a href="guides.html?g=${t.id}">📚 Lire le guide</a></p><h2>Autres outils</h2><div class="grid">${sh(T.filter(x => x != t)).slice(0, 4).map(card).join('')}</div>`;
+  a.innerHTML = `<h1>${t.i} ${t.n}</h1><p>${t.d}</p><div class="box" id="tb"></div><p><a href="guides.html?g=${t.id}">📚 Lire le guide</a></p><h2>Autres outils</h2><div class="grid">${sh(T.filter(x => x != t)).slice(0, 4).map(card).join('')}</div>`;
 
   const el = $('#tb');
   if (t.x) return t.x(el);
@@ -243,14 +239,14 @@ function guides(a) {
   const t = byId(Q.get('g'));
   if (!t) {
     document.title = 'Guides et tutoriels | ' + SITE.name;
-    a.innerHTML = `<h1>📚 Guides et tutoriels</h1>${AD('haut')}<div class="grid">${T.map(t => `<a class="card" href="guides.html?g=${t.id}"><b>${t.i} Guide :${t.n}</b><span>Comment bien l’utiliser</span></a>`).join('')}</div>`;
+    a.innerHTML = `<h1>📚 Guides et tutoriels</h1><div class="grid">${T.map(t => `<a class="card" href="guides.html?g=${t.id}"><b>${t.i} Guide :${t.n}</b><span>Comment bien l’utiliser</span></a>`).join('')}</div>`;
     return;
   }
 
   document.title = 'Guide : ' + t.n + ' | ' + SITE.name;
   document.querySelector('meta[name="description"]').content = 'Comment utiliser le ' + t.n.toLowerCase() + ' : étapes et conseils.';
 
-  a.innerHTML = `<h1>Guide : ${t.n}</h1><p>${t.d}</p>${AD('haut')}<h2>Comment l’utiliser</h2><ol><li>Ouvrez l’outil <a href="outil.html?t=${t.id}">${t.n}</a>.</li><li>Remplissez les champs proposés.</li><li>Copiez le résultat et utilisez-le où vous voulez.</li></ol><h2>Nos conseils</h2><p>${t.g}</p>${AD('milieu')}<a class="btn" href="outil.html?t=${t.id}">Utiliser l’outil</a> <a href="guides.html">← Tous les guides</a>`;
+  a.innerHTML = `<h1>Guide : ${t.n}</h1><p>${t.d}</p><h2>Comment l’utiliser</h2><ol><li>Ouvrez l’outil <a href="outil.html?t=${t.id}">${t.n}</a>.</li><li>Remplissez les champs proposés.</li><li>Copiez le résultat et utilisez-le où vous voulez.</li></ol><h2>Nos conseils</h2><p>${t.g}</p><a class="btn" href="outil.html?t=${t.id}">Utiliser l’outil</a> <a href="guides.html">← Tous les guides</a>`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
