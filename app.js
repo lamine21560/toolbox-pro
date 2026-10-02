@@ -1,5 +1,5 @@
 const SITE = { name: 'OmniTools', email: 'laminengom236@gmail.com' };
-const CATS = { social: '📱 Réseaux sociaux', texte: '✍️ Texte', secu: '🔐 Sécurité', calcul: '🧮 Calcul', design: '🎨 Design', fun: '🎲 Divers' };
+const CATS = { social: '📱 Réseaux sociaux', texte: '✍️️ Texte', secu: '🔐 Sécurité', calcul: '🧮 Calcul', design: '🎨 Design', fun: '🎲 Divers' };
 
 const $ = (s, r = document) => r.querySelector(s);
 const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -7,9 +7,12 @@ const sh = a => [...a].sort(() => Math.random() - .5);
 const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 const esc = s => String(s).replace(/[&<">]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const rnd = n => Math.floor(Math.random() * n);
-const AD = n => `<div class="ad" data-slot="${n}"></div>`;
 
-// Logo SVG transparent correspondant exactement à l'icône de ton image
+// Injection de publicité sans bloquer le rendu du JS
+const AD = n => `<div class="ad" data-slot="${n}">
+  <iframe srcdoc="<script>atOptions={'key':'812205587c049f865be1c4d32eb0eaa1','format':'iframe','height':250,'width':300,'params':{}};</script><script src='https://assistedtogether.com/812205587c049f865be1c4d32eb0eaa1/invoke.js'></script>" style="width:300px;height:250px;border:none;overflow:hidden;margin:auto;display:block;"></iframe>
+</div>`;
+
 const LOGO_SVG = `<svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="12"/>
   <circle cx="50" cy="50" r="12" fill="currentColor"/>
@@ -95,7 +98,7 @@ function lay() {
   const dk = localStorage.th ? localStorage.th == 'd' : matchMedia('(prefers-color-scheme:dark)').matches;
   document.documentElement.dataset.theme = dk ? 'dark' : 'light';
 
-  document.body.insertAdjacentHTML('afterbegin', `<header><div class="wrap"><a class="logo" href="index.html">${LOGO_SVG} <span>${SITE.name}</span></a><nav><a href="index.html">Accueil</a><a href="index.html#outils">Outils</a><a href="guides.html">Guides</a><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a></nav><button id="th" aria-label="Mode sombre">${dk ? '🌙' : '☀️'}</button></div></header>`);
+  document.body.insertAdjacentHTML('afterbegin', `<header><div class="wrap"><a class="logo" href="index.html">${LOGO_SVG} <span>${SITE.name}</span></a><nav><a href="index.html">Accueil</a><a href="index.html#outils">Outils</a><a href="guides.html">Guides</a><a href="a-propos.html">À propos</a><a href="contact.html">Contact</a></nav><button id="th" aria-label="Mode sombre">${dk ? '🌙' : '☀️️'}</button></div></header>`);
   document.body.insertAdjacentHTML('beforeend', `<footer>${AD('bas')}<a href="a-propos.html">À propos</a><a href="contact.html">Contact</a><a href="confidentialite.html">Confidentialité</a><a href="conditions.html">Conditions</a><p>© ${new Date().getFullYear()} ${SITE.name}</p></footer>`);
 
   $('#th').onclick = () => {
